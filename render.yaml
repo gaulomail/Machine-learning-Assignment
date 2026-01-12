@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: malware-detection-app
+    env: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    startCommand: gunicorn -w 4 -b 0.0.0.0:5000 src.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0

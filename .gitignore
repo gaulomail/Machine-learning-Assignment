@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+*.pkl
+brazilian-malware.csv
+.DS_Store
+.pytest_cache/
+*.pdf
+assignment.txt
