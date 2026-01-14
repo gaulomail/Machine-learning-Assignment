@@ -95,21 +95,21 @@ def train_and_evaluate(filepath='brazilian-malware.csv'):
     # 3. Split
     X_train, X_test, y_train, y_test = split_data(X, y)
     
-    # 4. Define Models
+    # 4. Define Models (optimized for speed)
     models = {
-        'Logistic Regression': LogisticRegression(max_iter=3000), 
-        'Decision Tree': DecisionTreeClassifier(),
-        'Random Forest': RandomForestClassifier(n_estimators=50, random_state=42),
-        'XGBoost': xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42),
-        'LightGBM': lgb.LGBMClassifier(verbose=-1, random_state=42),
-        'Gradient Boosting': GradientBoostingClassifier(n_estimators=50, random_state=42), # Replaced CatBoost
-        'PyTorch MLP': PyTorchMLP(epochs=5)
+        'Logistic Regression': LogisticRegression(max_iter=1000), 
+        'Decision Tree': DecisionTreeClassifier(random_state=42),
+        'Random Forest': RandomForestClassifier(n_estimators=30, random_state=42),
+        'XGBoost': xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42, n_estimators=100),
+        'LightGBM': lgb.LGBMClassifier(verbose=-1, random_state=42, n_estimators=100),
+        'Gradient Boosting': GradientBoostingClassifier(n_estimators=30, random_state=42)
+        # PyTorch MLP removed - too slow for production training
     }
     
     results = []
     
-    # 5. CV Loop
-    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+    # 5. CV Loop (reduced to 5-fold for faster training)
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     
     print("\nStarting Cross-Validation...")
     for name, model in models.items():
