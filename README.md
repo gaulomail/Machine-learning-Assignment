@@ -4,11 +4,38 @@ GuardAI is a high-performance, machine learning-based malware detection platform
 
 ## 🚀 Quick Start
 
-### 1. Prerequisites
+### One-Command Setup & Run (Recommended)
+The easiest way to get started - this single command will set up everything and launch the dashboard:
+
+```bash
+chmod +x setup.sh && ./setup.sh
+```
+
+**What this does:**
+- ✅ Creates Python virtual environment
+- ✅ Installs all dependencies
+- ✅ Trains the XGBoost model (~30 seconds)
+- ✅ Runs automated tests
+- 🚀 **Automatically starts the dashboard**
+
+Once complete, open your browser to **`http://localhost:5000`** to access GuardAI.
+
+### Running After Initial Setup
+After the first setup, you can quickly restart the application anytime:
+
+```bash
+./run.sh
+```
+
+This checks for the model and starts the dashboard immediately.
+
+### Manual Setup
+
+#### 1. Prerequisites
 - Python 3.9+
 - Virtual Environment (recommended)
 
-### 2. Installation
+#### 2. Installation
 ```bash
 # Clone the repository
 git clone <repository-url>
@@ -22,7 +49,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Model Training
+#### 3. Model Training
 To train the production model:
 ```bash
 # Full training (Cross-Validation + Multiple Models)
@@ -32,7 +59,7 @@ PYTHONPATH=. python src/train_models.py
 PYTHONPATH=. python src/train_quick.py
 ```
 
-### 4. Running the Dashboard
+#### 4. Running the Dashboard
 ```bash
 # Start the Flask application
 PYTHONPATH=. python -m src.app
@@ -50,12 +77,6 @@ Then visit `http://localhost:5000` in your browser.
 Run the automated test suite to verify backend and model integrity:
 ```bash
 pytest tests/
-```
-
-## 🐳 Docker Deployment
-```bash
-docker build -t guard-ai .
-docker run -p 5000:5000 guard-ai
 ```
 
 ## 📊 Evaluation Results
